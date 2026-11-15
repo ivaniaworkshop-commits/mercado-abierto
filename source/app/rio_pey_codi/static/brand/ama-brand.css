@@ -1,0 +1,198 @@
+/* AMA R003: presentation-derived identity, incremental and strictly presentational.
+ * All rules are restricted to the AMA surfaces; financial state semantics are unchanged.
+ * Never hide alerts, loading/status or permission-denied controls. */
+:root {
+  --ama-yellow:#ffd51b; --ama-yellow-soft:#fff0a5; --ama-red:#ee1740;
+  --ama-red-dark:#b30e30; --ama-blue:#149cc9; --ama-green:#1b8b6a;
+  --ama-ink:#151d2f; --ama-muted:#465061; --ama-cream:#fffdf2;
+  --ama-border:#e6e1d1; --ama-shadow:0 14px 32px #1e1f2416;
+  --ama-radius:22px;
+}
+html[data-ama-surface] { color-scheme: light; }
+html[data-ama-surface] body { color:var(--ama-ink); background:var(--ama-cream); }
+html[data-ama-surface] :is(.workspace-header,.top,.site-header,.header,.topbar) {
+  background:var(--ama-yellow)!important; color:var(--ama-ink)!important;
+  border-bottom:3px solid var(--ama-red)!important;
+}
+html[data-ama-surface] :is(.workspace-header,.top,.site-header,.header,.topbar) :is(.subtitle,.muted,small) { color:#4c3b25; }
+html[data-ama-surface] :is(.workspace-shell,.auth-shell,.shell,.wrap,.content,#market-app) { color:var(--ama-ink); }
+html[data-ama-surface] :is(.panel,.card,.module,.entry,.stat,.step-card,.auth-panel,.hero-proof,.ticket-card) {
+  border-radius:var(--ama-radius); border-color:var(--ama-border);
+  box-shadow:var(--ama-shadow);
+}
+html[data-ama-surface] :is(.eyebrow,.rio-kicker,.number,.step) { font-weight:850; letter-spacing:.09em; }
+html[data-ama-surface] :is(.eyebrow,.rio-kicker,.number) { color:var(--ama-red-dark); }
+html[data-ama-surface] :is(h1,h2,h3) { letter-spacing:-.025em; }
+html[data-ama-surface] :is(input,textarea,select) { border-radius:12px; }
+html[data-ama-surface] :is(button,a,summary,input,select,textarea):focus-visible {
+  outline:3px solid var(--ama-ink)!important; outline-offset:3px!important;
+}
+html[data-ama-surface] :is(button,a)[aria-disabled="true"],
+html[data-ama-surface] :is(button,a):disabled { cursor:not-allowed; }
+html[data-ama-surface] :is(.workspace-shell,.auth-panel,.content,.dashboard,.workspace) :is(button,a) { min-height:44px; }
+html[data-ama-surface] :is(.btn-primary,.button.primary,.primary,.auth-panel button[type="submit"]):not(:disabled) {
+  background:var(--ama-red); border-color:var(--ama-red); color:#fff;
+}
+html[data-ama-surface] :is(.btn-primary,.primary):hover:not(:disabled) { filter:brightness(.93); }
+html[data-ama-surface] :is(.panel,.card,.entry,.hero-aside,.section,.module) { overflow-wrap:anywhere; }
+/* Persistent brand identity and banners. */
+html[data-ama-surface] .ama-augmented-brand { display:inline-flex!important; align-items:center!important;
+  gap:10px!important; color:var(--ama-ink)!important; min-width:0; flex-wrap:wrap; }
+html[data-ama-surface] .ama-brand-identity { display:inline-flex; gap:8px; align-items:center; white-space:nowrap; flex-shrink:0; }
+html[data-ama-surface] .ama-brand-identity img { display:block; object-fit:contain; width:49px; height:49px;
+  background:#fff; border-radius:12px; border:1px solid #eddf9e; }
+html[data-ama-surface] .ama-brand-wordmark { color:var(--ama-red)!important;
+  font:italic 950 27px/1 system-ui,-apple-system,'Segoe UI',sans-serif; letter-spacing:-.065em; }
+html[data-ama-surface] .ama-augmented-brand :is(.mark,.brandmark) { display:none!important; }
+html[data-ama-surface] .ama-augmented-brand small { font-weight:700; }
+html[data-ama-surface] .ama-augmented-brand::before { display:none!important; } /* legacy login CSS logo fallback */
+html[data-ama-surface] .ama-workspace-intro { display:grid; grid-template-columns:minmax(0,1fr) 150px;
+  align-items:center; gap:22px; background:linear-gradient(125deg,#ffd51b,#ffe879);
+  border:1px solid #e0b610; border-radius:24px; padding:22px 27px;
+  margin:0 0 24px; overflow:hidden; box-shadow:var(--ama-shadow); }
+html[data-ama-surface] .ama-workspace-intro strong { display:block; max-width:24ch;
+  font-size:clamp(23px,3vw,36px); line-height:1.12; color:var(--ama-ink); letter-spacing:-.045em; }
+html[data-ama-surface] .ama-workspace-intro p { max-width:60ch; margin:10px 0 0; color:#493d29; font-size:15px; }
+html[data-ama-surface] .ama-workspace-intro img { display:block; width:150px; height:150px; object-fit:contain;
+  border:1px solid #f3d459; background:white; border-radius:18px; }
+html[data-ama-surface] .ama-side-signature { display:flex; gap:8px; align-items:center;
+  margin:0 3px 18px; padding:10px; background:#fff; border:1px solid #f0dea1;
+  border-radius:16px; color:var(--ama-ink); text-decoration:none; box-shadow:0 7px 20px #20252c11; }
+html[data-ama-surface] .ama-side-signature img { width:47px; height:47px; object-fit:contain; border-radius:12px; }
+html[data-ama-surface] .ama-side-signature strong { display:block; font:italic 950 23px/1 system-ui,sans-serif; color:var(--ama-red); }
+html[data-ama-surface] .ama-side-signature small { display:block; font-size:11px; color:var(--ama-muted); font-weight:700; }
+/* Main workspace / owner account: preserve permission, payment and validation states. */
+html[data-ama-surface="account"] { --ink:var(--ama-ink); --teal:var(--ama-red-dark);
+  --paper:#fff; --line:var(--ama-border); --muted:var(--ama-muted); }
+html[data-ama-surface="account"] body { background:#fffaf0; }
+html[data-ama-surface="account"] .workspace-header { border-radius:0 0 18px 18px; }
+html[data-ama-surface="account"] .workspace-nav { background:#fff; border:1px solid var(--ama-border); border-radius:18px; }
+html[data-ama-surface="account"] .workspace-nav a[aria-current="page"] { border-left:4px solid var(--ama-red); background:#fff2d3; color:var(--ama-ink); }
+html[data-ama-surface="account"] .area-menu { gap:15px; }
+html[data-ama-surface="account"] .area-button { border-radius:19px; border:1px solid #1d283a25;
+  box-shadow:0 8px 21px #111d2b15; }
+html[data-ama-surface="account"] .area-yellow { background:var(--ama-yellow); color:var(--ama-ink); }
+html[data-ama-surface="account"] .area-orange { background:#ffb64a; color:var(--ama-ink); }
+html[data-ama-surface="account"] .area-green { background:var(--ama-green); color:#fff; }
+html[data-ama-surface="account"] .area-blue { background:var(--ama-blue); color:#fff; }
+html[data-ama-surface="account"] .area-brown { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="account"] :is(.business-card,.cash-row) { border-radius:16px; border-color:var(--ama-border); }
+/* Login, and password restoration: CSS-only fallbacks work if script is unavailable. */
+html[data-ama-surface="login"] body { background:radial-gradient(circle at 85% 0%,#ffe670 0 12%,transparent 35%),var(--ama-cream)!important; }
+html[data-ama-surface="login"] .auth-shell { max-width:530px; margin-top:clamp(30px,7vh,85px); }
+html[data-ama-surface="login"] .auth-brand { display:flex; justify-content:center; align-items:center; text-align:center;
+  gap:12px; color:var(--ama-red-dark); text-decoration:none; font-weight:900; }
+html[data-ama-surface="login"] .auth-panel { background:#fff; border:1px solid var(--ama-border);
+  padding:clamp(22px,4vw,34px); }
+html[data-ama-surface="login"] .auth-panel :is(input,select) { font-size:16px; min-height:48px; }
+html[data-ama-surface="login"] .auth-panel :is(button[type="submit"],#owner-activate) { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="login"] .auth-links a { color:var(--ama-red-dark); }
+/* Unified launchpad, no change to session routing or hidden module flags. */
+html[data-ama-surface="launch"] { --bg:var(--ama-cream); --surface:#fff; --ink:var(--ama-ink);
+  --muted:var(--ama-muted); --line:var(--ama-border); --accent:var(--ama-red-dark); --warm:var(--ama-yellow); }
+html[data-ama-surface="launch"] body { background:var(--ama-cream)!important; }
+html[data-ama-surface="launch"] .top { background:var(--ama-yellow)!important; }
+html[data-ama-surface="launch"] .entry { background:#fff; border:1px solid var(--ama-border); }
+html[data-ama-surface="launch"] .hero h1 em { color:var(--ama-red); }
+html[data-ama-surface="launch"] .module { background:#fff; border:1px solid var(--ama-border); }
+html[data-ama-surface="launch"] .module:hover { border-color:var(--ama-red); }
+html[data-ama-surface="launch"] .module>a { color:var(--ama-red-dark); border-top-color:var(--ama-border); }
+html[data-ama-surface="launch"] .entry-actions .primary { background:var(--ama-red); color:#fff; border-radius:13px; }
+/* Caja: preserve semantic warning/success/status design; color only brand surface. */
+html[data-ama-surface="cash"] { --navy:var(--ama-ink); --blue:var(--ama-blue);
+  --primary:var(--ama-red-dark); --accent:#fff0bb; --border:var(--ama-border);
+  --shadow:var(--ama-shadow); }
+html[data-ama-surface="cash"] body { background:#fffaf0; }
+html[data-ama-surface="cash"] .hero { background:linear-gradient(120deg,#ffd51b,#ffef9d);
+  border:1px solid #e7cb44; border-radius:25px; padding:clamp(20px,4vw,36px); }
+html[data-ama-surface="cash"] .hero :is(h1,p) { color:var(--ama-ink); }
+html[data-ama-surface="cash"] .tabs { background:#fff; border-radius:17px; padding:6px; }
+html[data-ama-surface="cash"] .tab.active { background:var(--ama-red)!important; color:#fff!important; }
+html[data-ama-surface="cash"] :is(.btn-primary,.step) { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="cash"] .card { background:#fff; border-color:var(--ama-border); }
+html[data-ama-surface="cash"] .rio-nav a { color:var(--ama-red-dark); }
+/* Monte Carlo practice market: light-mode redesign, retain explicit fictitious labels. */
+html[data-ama-surface="market-sim"] { --bg:var(--ama-cream); --panel:#fff; --panel2:#fff7d8;
+  --line:var(--ama-border); --white:var(--ama-ink); --muted:var(--ama-muted);
+  --accent:var(--ama-red-dark); --gold:#a66a00; --red:#b30e30; --blue:#115f8a; }
+html[data-ama-surface="market-sim"] body { color:var(--ama-ink)!important; background:var(--ama-cream)!important; }
+html[data-ama-surface="market-sim"] .hero { background:linear-gradient(128deg,#ffd51b,#ffe986)!important;
+  border:1px solid #e7c428; border-radius:24px; padding:clamp(20px,4vw,42px); }
+html[data-ama-surface="market-sim"] .hero :is(h1,.intro,.eyebrow) { color:var(--ama-ink); }
+html[data-ama-surface="market-sim"] .hero h1 em { color:var(--ama-red-dark); }
+html[data-ama-surface="market-sim"] :is(.panel,.hero-proof,.candidate,.stat) { background:#fff!important;
+  color:var(--ama-ink)!important; border-color:var(--ama-border)!important; }
+html[data-ama-surface="market-sim"] :is(.primary,button.primary) { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="market-sim"] :is(input,select) { color:var(--ama-ink); background:#fff; border-color:#c8c2ad; }
+html[data-ama-surface="market-sim"] .tag { color:var(--ama-ink); border-color:#bfaf79; }
+html[data-ama-surface="market-sim"] .tag.amber { background:#fff0bd; color:#735000; }
+/* Practice commerce: sidebar, cards, actions, responsive products. */
+html[data-ama-surface="commerce"] { --bg:var(--ama-cream); --nav:#fff8d7; --surface:#fff;
+  --surface2:#fff5d9; --line:var(--ama-border); --ink:var(--ama-ink);
+  --muted:var(--ama-muted); --accent:var(--ama-red-dark); --blue:#116a94;
+  --amber:#855408; --r:18px; --shade:var(--ama-shadow); }
+html[data-ama-surface="commerce"] .side { background:#fff5cb; border-right:2px solid #ecd58a; }
+html[data-ama-surface="commerce"] .navitem.active { background:#fff; color:var(--ama-red-dark); border-left:4px solid var(--ama-red); }
+html[data-ama-surface="commerce"] .content { background:var(--ama-cream); }
+html[data-ama-surface="commerce"] .panel { background:#fff; }
+html[data-ama-surface="commerce"] :is(.product,.order,.stat) { border-color:var(--ama-border); border-radius:17px; }
+html[data-ama-surface="commerce"] :is(.btn.primary,button.primary) { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="commerce"] .mobileNav { background:#fff9e1; border-top:2px solid var(--ama-red); }
+/* Live market: status, directory, quotations, inventory and logistics remain functional. */
+html[data-ama-surface="market-live"] { --bg:var(--ama-cream); --ink:var(--ama-ink);
+  --muted:var(--ama-muted); --line:var(--ama-border); --accent:var(--ama-red-dark);
+  --orange:#c26d08; --green:#197a5a; --blue:#116a94; }
+html[data-ama-surface="market-live"] body { background:var(--ama-cream)!important; }
+html[data-ama-surface="market-live"] .area-nav { background:#fff7d5; border-right:1px solid var(--ama-border); }
+html[data-ama-surface="market-live"] .area-nav button { border-radius:12px; color:var(--ama-ink); }
+html[data-ama-surface="market-live"] .area-nav button[aria-current="page"] { color:var(--ama-red-dark);
+  border-color:#e7cf79; background:#fff; border-left:4px solid var(--ama-red); }
+html[data-ama-surface="market-live"] #market-app { background:var(--ama-cream); }
+html[data-ama-surface="market-live"] .city-chip { background:#fff; border-color:#e6c856; color:#70430e; }
+html[data-ama-surface="market-live"] :is(.button.primary,button.primary) { background:var(--ama-red); color:#fff; }
+html[data-ama-surface="market-live"] :is(.panel,.card,dialog) { background:#fff; border-radius:18px; border-color:var(--ama-border); }
+/* Payment return: do not change status meaning, QR validation, fetch or buttons. */
+html[data-ama-surface="payment-return"] body { min-height:100vh; padding:clamp(22px,5vw,65px) 16px;
+  background:radial-gradient(circle at 85% -10%,#ffe96b,transparent 45%),var(--ama-cream)!important; }
+html[data-ama-surface="payment-return"] main { max-width:720px; margin:auto; background:#fff;
+  border:1px solid var(--ama-border); border-radius:24px; padding:clamp(23px,5vw,43px);
+  box-shadow:var(--ama-shadow); color:var(--ama-ink); }
+html[data-ama-surface="payment-return"] main h1 { color:var(--ama-red-dark); font-size:clamp(25px,4vw,39px); }
+html[data-ama-surface="payment-return"] #payment-return-status { padding:13px 16px; background:#fff7dd;
+  border:1px solid #e7ca72; border-radius:12px; font-weight:750; }
+html[data-ama-surface="payment-return"] #payment-return-refresh { background:var(--ama-red); color:#fff;
+  border-radius:12px; min-height:48px; padding:11px 20px; }
+html[data-ama-surface="payment-return"] .ama-brand-return { display:inline-flex; align-items:center; gap:12px;
+  text-decoration:none; margin:0 0 20px; color:var(--ama-red-dark); font-size:22px; font-weight:950; }
+html[data-ama-surface="payment-return"] .ama-brand-return img { width:58px; height:58px; border-radius:14px; }
+/* Navigation, readability and accessibility improvements. */
+html[data-ama-surface] .rio-nav { gap:9px; border-bottom:2px solid var(--ama-red); }
+html[data-ama-surface] .rio-nav a { background:#fff; color:var(--ama-red-dark); border:1px solid #e6d595;
+  border-radius:12px; padding:10px 13px; min-height:44px; }
+html[data-ama-surface] .rio-nav a[aria-current="page"] { background:#ffe57b; color:var(--ama-ink); }
+html[data-ama-surface] :is(.pill,.tag,.chip,.demo) { border-radius:999px; }
+@media(max-width:780px) {
+  html[data-ama-surface] .ama-workspace-intro { grid-template-columns:minmax(0,1fr) 106px; padding:16px; gap:12px; }
+  html[data-ama-surface] .ama-workspace-intro img { width:106px; height:106px; }
+  html[data-ama-surface] .ama-workspace-intro strong { font-size:clamp(21px,5vw,29px); }
+  html[data-ama-surface] .ama-brand-identity img { width:42px; height:42px; }
+  html[data-ama-surface] .ama-brand-wordmark { font-size:23px; }
+}
+@media(max-width:430px) {
+  html[data-ama-surface] .ama-workspace-intro { grid-template-columns:1fr; }
+  html[data-ama-surface] .ama-workspace-intro img { display:none; }
+  html[data-ama-surface] .ama-brand-identity img { width:36px; height:36px; }
+  html[data-ama-surface] .ama-brand-wordmark { font-size:21px; }
+  html[data-ama-surface] .ama-side-signature img { width:38px; height:38px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html[data-ama-surface] *,html[data-ama-surface] *::before,html[data-ama-surface] *::after {
+    animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important;
+  }
+}
+@media print {
+  html[data-ama-surface] .ama-workspace-intro,html[data-ama-surface] .ama-side-signature {
+    display:none!important;
+  }
+  html[data-ama-surface] body { background:white!important; }
+}

@@ -1,0 +1,21 @@
+# Never commit local credentials, databases or session artefacts
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+*.log

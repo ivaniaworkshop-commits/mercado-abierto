@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es" data-session-required="true">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Mercado Abierto · Mi perfil</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/workspace.css">
+<link rel="stylesheet" href="/static/rio-help.css">
+<link rel="stylesheet" href="/static/session-guard.css">
+<script defer src="/static/session-guard.js"></script><script defer src="/static/workspace.js"></script><script defer src="/static/app.js"></script><script defer src="/static/activity-ui.js"></script><script defer src="/static/pey-private.js"></script><script defer src="/static/alta-pey.js"></script><script defer src="/static/unificada/puente.js"></script><script defer src="/static/unificada/cuenta.js"></script>
+<script defer src="/static/unificada/caja/caja-1.js"></script><script defer src="/static/cash-ui.js"></script><script defer src="/static/rio-help.js"></script>
+<!-- AMA R001: additive brand system; no changes to payment/auth logic -->
+<link rel="icon" type="image/webp" href="/static/brand/ama-favicon.webp">
+<link rel="stylesheet" href="/static/brand/ama-brand.css">
+<script defer src="/static/brand/ama-brand.js"></script>
+</head>
+<body><a class="skip-link" href="#main">Saltar al contenido</a><main class="shell workspace-shell"><header class="workspace-header"><div>
+<div class="brand">Mercado Abierto <span>MI COMERCIO</span>
+</div>
+<p id="environment" class="tag"></p>
+</div>
+<div class="workspace-user">
+<span id="welcome"></span><button id="owner-activity-open" class="outline activity-trigger" type="button" hidden aria-haspopup="dialog" aria-controls="owner-activity-dialog">Actividad</button><button id="logout" class="outline" type="button" aria-label="Cerrar sesión de Mercado Abierto">Cerrar sesión</button>
+</div></header><dialog id="owner-activity-dialog" class="activity-dialog" aria-labelledby="owner-activity-title"><div class="activity-heading"><h2 id="owner-activity-title">Actividad de la aplicación</h2><button type="button" id="owner-activity-close" class="outline">Cerrar</button></div><p class="muted">Solo para la cuenta titular. Horarios de Ciudad de México. «Aceptado por el servidor de correo» no confirma llegada a Recibidos. Los eventos anteriores recuperados no acreditan envíos de correo.</p><div class="activity-actions"><label>Mostrar<select id="owner-activity-category"><option value="">Todo</option><option value="accounts">Registros de cuentas</option><option value="verification">Verificación y recuperación</option><option value="email">Correo</option><option value="access">Accesos</option><option value="pey">Conexiones de pey</option></select></label><button type="button" id="owner-activity-refresh" class="outline">Actualizar</button></div><p id="owner-activity-status" role="status" aria-live="polite"></p><ol id="owner-activity-list" class="activity-list"></ol><button type="button" id="owner-activity-more" class="outline" hidden>Cargar anteriores</button></dialog><dialog id="pey-disconnect-dialog" role="alertdialog" aria-modal="true" aria-labelledby="pey-disconnect-title" aria-describedby="pey-disconnect-description"><h2 id="pey-disconnect-title">Desconectar pey</h2><p id="pey-disconnect-description">¿Eliminar la conexión de pey de este comercio? Se desactivarán los nuevos cobros. La cuenta en pey y el historial se conservan.</p><div class="dialog-actions"><button type="button" class="outline" id="pey-disconnect-cancel">Cancelar</button><button type="button" id="pey-disconnect-confirm">Desconectar</button></div></dialog><div id="notice" role="status" aria-live="polite"></div><p id="global-error" role="alert" hidden></p><p id="session-loading" role="status" aria-live="polite">Validando sesión…</p>
+<section id="dashboard" hidden><div id="commerce-context">
+<article class="panel workspace-context" id="rio-merchant-details"><h3>Comercio activo</h3>
+<label>Elige comercio<select id="merchant"></select></label><p id="pey-connection-status" class="muted" role="status" aria-live="polite">Consultando conexión de pey…</p><a href="#configuracion-pey">Ver cuenta de pey</a></article>
+ </div>
+<div class="workspace-layout">
+<nav class="workspace-nav" aria-label="Secciones de la aplicación"><a href="#menu" data-workspace-view="menu">Menú principal</a><a href="#cobro-codi" data-workspace-view="caja">Caja</a><a href="#historial" data-workspace-view="historial">Historial</a><a href="#mis-negocios" data-workspace-view="negocios">Mis negocios</a><a href="/mercado-abierto">Mercado Abierto</a><a data-owner-area="market" data-owner-href="/static/unificada/mercado/index.html" aria-disabled="true" tabindex="0" aria-label="Mercado, solo cuenta titular">Mercado · <span data-owner-only-hint>Solo cuenta titular</span></a></nav><div class="workspace-content" id="main" tabindex="-1"><nav class="workspace-breadcrumb" aria-label="Ruta" hidden><a href="#menu" data-workspace-view="menu">Menú principal</a> / <span id="breadcrumb-current" aria-current="page"></span></nav>
+<section class="workspace-view area-menu-view" data-workspace-panel="menu" id="main-area-menu" hidden aria-label="Áreas principales"><h1>Áreas del comercio</h1><nav class="area-menu" aria-label="Áreas del comercio"><ul class="area-menu-list">
+<li><a href="#cobro-codi" class="area-button area-yellow" data-workspace-view="caja"><span class="area-icon" aria-hidden="true">▣</span><span class="area-label">Caja</span><p>CoDi y efectivo</p></a></li>
+<li><a href="/mercado-abierto" class="area-button area-orange"><span class="area-icon" aria-hidden="true">→</span><span class="area-label">Mercado Abierto</span><p>Operación comercial</p></a></li>
+<li><a href="#mis-negocios" class="area-button area-green" data-workspace-view="negocios"><span class="area-icon" aria-hidden="true">⌂</span><span class="area-label">Mis negocios</span><p>Conexiones por perfil</p></a></li>
+<li><a href="#historial" class="area-button area-brown" data-workspace-view="historial"><span class="area-icon" aria-hidden="true">◷</span><span class="area-label">Historial</span><p>Movimientos y revisiones</p></a></li>
+<li><a class="area-button area-white" data-owner-area="market" data-owner-href="/static/unificada/mercado/index.html" aria-disabled="true" tabindex="0" aria-label="Mercado, solo cuenta titular"><span class="area-icon" aria-hidden="true">▦</span><span class="area-label">Mercado</span><p data-owner-only-hint>Solo cuenta titular</p></a></li>
+<li data-owner-area="activity" hidden><button type="button" class="area-button area-blue" data-open-activity data-owner-area="activity" hidden><span class="area-icon" aria-hidden="true">≡</span><span class="area-label">Actividad</span><p>Registro de la cuenta</p></button></li>
+</ul></nav></section><section class="workspace-view" data-workspace-panel="caja" hidden><div class="view-heading">
+<p class="eyebrow">VENTAS</p>
+<h1>Caja</h1>
+<p>Prepara una venta y elige efectivo o CoDi desde el mismo formulario.</p>
+</div>
+<article class="panel payment-method-panel"><label for="payment-method">Forma de cobro</label><select id="payment-method"><option value="codi">CoDi con pey</option><option value="cash">Efectivo</option></select><p id="payment-method-note" class="muted" role="status"></p><button type="button" id="shared-new-sale" class="outline">Preparar otra venta</button></article><details class="panel secondary-details"><summary>Carrito de productos · piezas o peso</summary><div class="cash-grid"><label>Producto<input id="cash-item-name" maxlength="120"></label><label>Precio por unidad (MXN)<input id="cash-item-price" inputmode="decimal" placeholder="0.00"></label><label>Cantidad<input id="cash-item-qty" inputmode="decimal" value="1"></label><label>Unidad<select id="cash-item-unit"><option value="piece">Piezas</option><option value="kg">Kilogramos</option></select></label></div><button type="button" id="cash-item-add" class="outline">Agregar producto</button><ul id="cash-cart"></ul><dl class="cash-total"><dt>Total del carrito</dt><dd id="cash-cart-total" aria-live="polite">$0.00</dd></dl><button type="button" id="cash-cart-apply">Usar carrito en el cobro</button><button type="button" id="cash-cart-clear" class="outline">Vaciar carrito</button></details><section class="rio-bridge-card" id="rio-gateway-panel" hidden><h2>Venta de práctica por copiar</h2>
+<p id="rio-gateway-transfer-status" class="rio-bridge-status" role="status" aria-live="polite"></p>
+<button type="button" id="rio-gateway-import">Copiar al formulario</button><button type="button" id="rio-gateway-dismiss">Descartar traslado</button><p>Una copia no crea una solicitud, no conecta una cuenta y no confirma un pago. El servidor determina si puede generar solicitudes de práctica.</p></section>
+<section class="panel" id="cobro-codi" aria-labelledby="codi-section-title"><h2 id="codi-section-title">Datos de la venta · CoDi</h2>
+<p id="charge-merchant" class="muted"></p>
+<form id="charge" aria-busy="false">
+<label>Folio de venta compartido (opcional)<input id="sale-order" name="order_id" maxlength="70" pattern="[A-Za-z0-9][A-Za-z0-9._\-]{0,69}" autocomplete="off" autocapitalize="off" aria-describedby="folio-help sale-order-error"></label><p id="sale-order-error" class="field-error" role="alert" aria-live="polite"></p><p id="folio-help" class="muted">Usa el mismo folio en todas las cajas para la misma venta.</p>
+<label>Concepto<input id="sale-concept" name="concept" value="Venta de ejemplo" maxlength="140" aria-describedby="sale-concept-error" required></label><p id="sale-concept-error" class="field-error" role="alert" aria-live="polite"></p><label>Importe MXN<input id="amount" name="amount" placeholder="50.00" inputmode="decimal" autocomplete="off" pattern="^[0-9]+(\.[0-9]{1,2})?$" aria-describedby="amount-format amount-error" required></label><p id="amount-format" class="muted">Formato: pesos y hasta dos decimales, por ejemplo 50.00.</p><p id="amount-error" class="field-error" role="alert" aria-live="polite"></p><fieldset id="receipt-options" hidden><legend>Comprobante del pago</legend><label>Correo del pagador<input id="payer-email" name="payer_email" type="email" maxlength="254" autocomplete="off" aria-describedby="payer-email-error"><p id="payer-email-error" class="field-error" role="alert" aria-live="polite"></p></label><label class="setup-check"><input id="receipt-disabled" type="checkbox"> No enviar el comprobante de este cobro por correo</label><p class="muted">Al confirmar pey el pago, enviaremos un QR verificable al pagador y al titular del comercio con correo verificado. El comprobante indicará «Pago confirmado por pey».</p></fieldset><button id="charge-submit" disabled>Generar solicitud</button>
+</form>
+<p id="charge-result-status" role="status" aria-live="polite"></p><p id="charge-mode-note" class="muted" role="status" aria-live="polite"></p></section>
+ <section class="panel" id="cash-tools" hidden aria-labelledby="cash-section-title"><h2 id="cash-section-title">Cobrar en efectivo</h2><label>Recibido (MXN)<input id="cash-received" inputmode="decimal" placeholder="0.00"></label><dl class="cash-total"><dt>Cambio</dt><dd id="cash-change" aria-live="polite">$0.00</dd></dl><button type="button" id="cash-record">Registrar efectivo recibido</button><button type="button" id="cash-new-sale" class="outline">Otra venta en efectivo</button><button type="button" id="cash-ticket" class="outline" disabled>Descargar ticket</button><p id="cash-status" role="status" aria-live="polite"></p><p class="muted">El efectivo se registra según lo que indique la persona. El ticket no es fiscal ni una confirmación bancaria. Estos registros se guardan en este navegador, separados por usuario y negocio.</p><details><summary>Historial y respaldo de efectivo</summary><p id="cash-history-empty" role="status">Sin movimientos de efectivo. Registra una venta desde Caja para crear el primer ticket.</p><ul id="cash-history" role="list"></ul><button type="button" id="cash-export" class="outline">Exportar respaldo</button><label>Importar respaldo de este negocio<input type="file" id="cash-import" accept="application/json,.json"></label></details></section><article class="panel" id="result" hidden><h3>Solicitud</h3>
+<div id="qrcode" class="qr"></div><p id="receipt-status" role="status" aria-live="polite"></p><a id="receipt-link" hidden target="_blank" rel="noopener noreferrer">Abrir comprobante verificable</a>
+<dl>
+<dt>Folio</dt>
+<dd id="folio"></dd>
+<dt>Importe</dt>
+<dd id="qr-amount"></dd>
+<dt>Estado</dt>
+<dd id="qrstate" aria-live="polite"></dd>
+<dt>ID de QR en pey</dt>
+<dd id="qr-provider-id">—</dd>
+<dt>Transacción en pey</dt>
+<dd id="qr-provider-tx">—</dd>
+<dt>Liquidación bancaria</dt>
+<dd>Sin verificar</dd>
+</dl>
+<button id="refresh" class="outline">Actualizar estado</button> <button id="refresh-pey" class="outline" hidden>Consultar a pey</button> <button id="new-order" class="outline">Nueva orden</button> <button id="ticket" class="outline">Descargar ticket de práctica</button></article>
+ </section><section class="workspace-view" id="historial" data-workspace-panel="historial" hidden><div class="view-heading">
+<p class="eyebrow">SEGUIMIENTO</p>
+<h1>Historial</h1>
+<p>Recupera solicitudes y revisa sus movimientos.</p>
+</div>
+<article class="panel" id="unresolved-panel"><h3>Solicitudes sin resolver</h3>
+<p class="muted">Revisa esta lista antes de repetir una solicitud. La liquidación bancaria sigue sin verificarse.</p>
+<p id="unresolved-status" role="status"></p>
+<ul id="unresolved"></ul>
+<button id="unresolved-refresh" class="outline" type="button">Actualizar lista</button> <button id="unresolved-more" class="outline" type="button" hidden>Cargar más</button></article>
+  <article class="panel" id="history-panel"><h3>Historial del comercio</h3>
+<p id="history-empty" role="status" aria-live="polite" hidden>No hay movimientos de CoDi para este comercio. <a href="#cobro-codi">Abrir Caja para preparar un cobro</a>.</p><div class="history-table-wrap"><table><caption>Movimientos de CoDi del comercio activo</caption><thead><tr><th scope="col">Folio</th><th scope="col">Importe</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead><tbody id="history-table-body"></tbody></table></div><ul id="history" class="history-mobile" role="list" aria-label="Movimientos de CoDi, versión móvil"></ul></article>
+<article class="panel" id="review" hidden><h3>Revisar registro bancario</h3>
+<p class="muted">Compara un registro que tú consultaste. Una coincidencia es sólo candidata y no confirma el abono. La revisión guarda el resultado y el conteo, no los datos bancarios que captures aquí.</p>
+<p class="muted">Para transferencias procesadas por SPEI puedes <a href="https://www.banxico.org.mx/cep/" target="_blank" rel="noopener noreferrer">obtener el CEP XML</a> y <a href="https://www.banxico.org.mx/validador-cep-spei/" target="_blank" rel="noopener noreferrer">validarlo en Banxico</a>. El estado «liquidado» por sí solo no confirma el abono. Las transferencias CoDi entre cuentas de la misma institución pueden procesarse por sus sistemas internos; consulta también tu banco. La aplicación no valida automáticamente el resultado de esos sitios.</p>
+  <form id="review-form">
+<fieldset id="review-fields">
+<label>CLABE de la cuenta receptora<input id="review-clabe" name="beneficiary" inputmode="numeric" pattern="[0-9]{18}" maxlength="18" autocomplete="off" required></label><label>Clave de rastreo<input id="review-tracking" name="tracking_key" maxlength="256" autocomplete="off" required></label><label>Importe MXN<input id="review-amount" name="amount" inputmode="decimal" pattern="[0-9]+(\.[0-9]{1,2})?" autocomplete="off" required></label><label>Movimiento<select id="review-direction" name="direction"><option value="credit">Abono</option>
+<option value="reversal">Reverso</option></select></label><label>Referencia de tu evidencia<input id="review-reference" name="evidence_reference" maxlength="100" autocomplete="off" required></label>
+</fieldset>
+<button type="button" id="review-preview" class="outline">Vista previa</button> <button type="submit" id="review-save">Guardar revisión</button>
+</form>
+  <p id="review-status" role="status" aria-live="polite"></p>
+<button id="review-reload" class="outline" type="button">Consultar revisiones guardadas</button><ul id="review-history"></ul></article>
+  </section><section class="workspace-view" data-workspace-panel="negocios" hidden id="mis-negocios"><div class="view-heading"><p class="eyebrow">TU PERFIL COMERCIAL</p><h1>Mis negocios</h1><p>Agrega negocios a tu perfil y configura una cuenta de pey independiente para cada uno.</p></div>
+<article class="panel"><h2 id="business-connections-title">Negocios de tu perfil</h2><label for="business-search">Buscar negocios de tu perfil</label><input id="business-search" type="search" autocomplete="off" aria-controls="business-list"><p id="business-results" role="status" aria-live="polite"></p><p id="business-empty" role="status" hidden>Sin conexiones en esta búsqueda. Cambia el filtro o <button id="business-empty-add" type="button" class="outline">agrega un negocio</button>.</p><section id="business-list" class="business-list" aria-labelledby="business-connections-title"></section><p class="muted">El negocio seleccionado determina la cuenta receptora y el historial. Cada negocio conserva su propia conexión de pey.</p></article><article class="panel"><h2>Dar de alta otro negocio</h2>
+<form id="add-merchant">
+<label>Otro comercio<input name="name" placeholder="Nombre comercial" minlength="2" required></label><button class="outline">Agregar comercio</button>
+</form></article><picture class="provider-mark"><source srcset="/static/pey_codi_dark.svg" media="(prefers-color-scheme: dark)"><img src="/static/pey_codi_light.svg" alt="Logotipos de pey y CoDi" loading="lazy" width="180" height="70"></source></picture>
+<article class="panel" id="configuracion-pey" aria-labelledby="pey-private-title" hidden>
+ <h2 id="pey-private-title">Tu cuenta receptora de pey</h2>
+ <section aria-label="Cuenta de pey guardada" id="private-pey-summary">
+  <h3 id="private-pey-account-status" role="status">Consultando tu cuenta…</h3>
+  <p id="private-pey-empty" hidden>No aparece una conexión de pey guardada para este comercio. Completa la configuración de abajo y pulsa Guardar configuración. Si diste de alta la cuenta en el portal de pey, vincúlala aquí con su ID o con la llave asociada.</p>
+  <dl><dt>Cuenta receptora en pey</dt><dd id="private-pey-saved-account">—</dd><dt>ID de la API key</dt><dd id="private-pey-saved-key-id">—</dd><dt>Última actualización</dt><dd id="private-pey-updated">—</dd><dt>Última verificación de la conexión</dt><dd id="private-pey-verified">—</dd></dl>
+  <p><a href="https://portal.pey.mx" target="_blank" rel="noopener noreferrer">Abrir mi cuenta en el portal de pey</a></p>
+  <button type="button" class="outline" id="private-pey-check">Actualizar estado de mi cuenta</button>
+  <button type="button" class="outline" id="private-pey-delete" disabled aria-label="Desconectar pey de este comercio" aria-busy="false">Desconectar conexión de pey</button>
+  <p class="muted">Eliminar la conexión desactiva los nuevos cobros de este comercio en Mercado Abierto. La cuenta de pey y los cobros anteriores se conservan.</p>
+ </section><h3>Configurar o cambiar la conexión</h3>
+ <ol class="setup-steps">
+  <li>En <a href="https://portal.pey.mx/" target="_blank" rel="noopener noreferrer">Desarrollador de pey</a>, abre la API key vinculada a tu cuenta CoDi activa.</li>
+  <li>Registra la URL de este comercio en la configuración del webhook de esa llave. Copia el secreto que muestra pey.</li>
+  <li>Guarda la llave y el secreto aquí. Después confirma el destino y verifica la conexión.</li>
+ </ol>
+ <p id="private-pey-merchant">Inicia sesión y selecciona un comercio para continuar.</p>
+ <div id="private-pey-url-group" hidden>
+  <label for="private-pey-url">URL del webhook de tu comercio</label>
+  <input id="private-pey-url" type="url" readonly spellcheck="false">
+  <button type="button" class="outline" id="private-pey-copy">Copiar URL</button>
+ </div>
+ <p id="private-pey-state" role="status" aria-live="polite"></p>
+ <form id="private-pey-form" autocomplete="off">
+  <label for="private-pey-key">API key de pey</label><input id="private-pey-key" type="password" autocomplete="new-password" maxlength="512">
+  <label for="private-pey-webhook">Secreto del webhook</label><input id="private-pey-webhook" type="password" autocomplete="new-password" maxlength="512">
+  <label for="private-pey-key-id">ID de la API key (opcional)</label><input id="private-pey-key-id" type="text" autocomplete="off" maxlength="26" pattern="[0-7][0-9A-HJKMNP-TV-Z]{25}" title="Usa el ID de la API key de pey: 26 caracteres">
+  <label for="private-pey-bank">ID de cuenta de pey (opcional)</label><input id="private-pey-bank" type="text" autocomplete="off" maxlength="26" pattern="[0-7][0-9A-HJKMNP-TV-Z]{25}" title="Usa el ID de cuenta de pey de 26 caracteres, no la CLABE" aria-describedby="private-pey-bank-help">
+  <p id="private-pey-bank-help" class="muted">Aquí va el ID de cuenta de 26 caracteres que muestra pey. La CLABE de 18 dígitos se registra en el portal de pey.</p>
+  <label class="setup-check"><input id="private-pey-default-bank" type="checkbox"> Usar la cuenta CoDi vinculada a la llave</label>
+  <p class="muted">Deja vacío lo que quieras conservar. Usa el ID de pey para seleccionar una cuenta. Los cambios requieren verificar la conexión de nuevo.</p>
+  <button type="submit">Guardar configuración</button>
+ </form>
+ <div class="private-pey-activation">
+  <label class="setup-check"><input id="private-pey-confirm" type="checkbox"> Confirmé en pey la cuenta receptora activa vinculada a esta llave y registré la URL del webhook.</label>
+  <button type="button" class="outline" id="private-pey-activate">Verificar conexión y habilitar CoDi</button>
+ </div>
+</article>
+ <details class="panel secondary-details"><summary>Consulta de cuenta y declaraciones</summary><article class="panel" id="beneficiary-panel" hidden><h3>Tu cuenta de pey</h3>
+<p class="muted">Cada comercio debe usar su propia cuenta. Guarda su ID y, si lo deseas, consulta su estado con tu clave de pey.</p>
+<form id="beneficiary-form">
+<label>ID de tu cuenta en pey<input id="beneficiary-account" name="account" pattern="[0-7][0-9A-HJKMNP-TV-Z]{25}" maxlength="26" autocomplete="off" autocapitalize="characters" aria-describedby="beneficiary-help"></label><p id="beneficiary-help" class="muted">No escribas una CLABE en este campo.</p>
+<button id="beneficiary-save" type="submit">Guardar mi confirmación</button> <button id="beneficiary-withdraw" class="outline" type="button">Retirar mi confirmación</button>
+</form>
+<p id="beneficiary-status" role="status" aria-live="polite"></p>
+<ul id="beneficiary-history"></ul>
+<form id="own-pey-form">
+<label>Clave de API de tu cuenta de pey<input id="own-pey-key" type="password" minlength="1" maxlength="512" autocomplete="off" spellcheck="false" required></label><button id="own-pey-check" type="submit">Consultar mi cuenta en pey</button>
+</form>
+<p id="own-pey-status" role="status" aria-live="polite"></p>
+<p class="muted">La clave se envía al servidor para esta consulta y no se guarda. La consulta no deja conectada la clave ni activa cobros.</p>
+<button id="provider-account-check" class="outline" type="button" hidden>Consultar cuenta configurada</button><p id="provider-readiness" role="status" aria-live="polite"></p></article>
+ </details><details class="panel secondary-details"><summary>Guía de preparación de pey</summary><section class="panel" id="pey-setup" aria-labelledby="pey-setup-title">
+ <h2 id="pey-setup-title">Da de alta CoDi con pey</h2>
+ <p>Prepara tu propia cuenta receptora en el portal de pey. Marca los pasos que completes para recordar tu avance.</p>
+ <div class="local-profile">
+  <label for="pey-profile-email">Correo de tu perfil local</label>
+  <input id="pey-profile-email" type="email" maxlength="254" autocomplete="email" placeholder="correo@example.com">
+  <button id="pey-profile-save" type="button" class="outline">Guardar perfil en este dispositivo</button>
+  <p id="pey-profile-status" role="status" aria-live="polite">Perfil sin configurar.</p>
+  <p class="muted">Este perfil no inicia sesión ni verifica la propiedad del correo. El correo y el avance se guardan sin cifrar en este navegador.</p>
+ </div>
+ <ol class="setup-steps">
+  <li>
+<label class="setup-check"><input type="checkbox" data-pey-step="perfil"><span>Creé o abrí mi perfil en pey.</span></label> <a href="https://portal.pey.mx/" target="_blank" rel="noopener noreferrer">Abrir pey</a>
+</li>
+  <li>
+<label class="setup-check"><input type="checkbox" data-pey-step="cuenta"><span>Agregué en pey la cuenta bancaria de mi comercio para recibir por CoDi.</span></label> Usa una cuenta propia autorizada para tu negocio.</li>
+  <li>
+<label class="setup-check"><input type="checkbox" data-pey-step="activa"><span>Comprobé en pey que mi cuenta CoDi está activa.</span></label> La activación depende de pey y del registro bancario.</li>
+  <li>
+<label class="setup-check"><input type="checkbox" data-pey-step="clave"><span>Creé una clave de API vinculada a mi cuenta.</span></label> <a href="https://docs.pey.mx/docs/tutorials/getting-started/create-an-api-key/" target="_blank" rel="noopener noreferrer">Ver guía oficial</a>
+</li>
+ </ol>
+ <p id="pey-progress" role="status" aria-live="polite">El avance se guarda solo en este navegador; son declaraciones tuyas.</p>
+ <p class="muted">Inicia sesión y abre la configuración privada de tu comercio para conectar pey.</p>
+ <button id="pey-progress-clear" type="button" class="outline">Borrar avance de esta guía</button>
+</section>
+</details><article class="panel" id="invite-panel" hidden>
+  <h3>Invitar a un comercio</h3>
+  <p>Genera un enlace privado para que la persona active su cuenta y elija su propia contraseña.</p>
+  <form id="invite-form">
+<label>Nombre del comercio<input name="business_name" minlength="2" maxlength="120" required></label><label>Correo del titular<input name="email" type="email" maxlength="254" autocomplete="off" required></label><button id="invite-create" type="submit">Generar invitación</button>
+</form>
+  <p id="invite-status" role="status" aria-live="polite"></p>
+  <label id="invite-link-label" hidden>Enlace privado de un solo uso<input id="invite-link" type="text" readonly autocomplete="off"></label>
+  <p class="muted">Comparte el enlace por un canal privado. Vence en 24 horas. Si aún no se usa, puedes generar otro con el mismo correo y conservar el comercio original.</p>
+ </article>
+ <article class="panel rio-admin-recovery" id="rio-admin-recovery" hidden aria-labelledby="rio-admin-recovery-heading">
+  <p class="rio-kicker">ADMINISTRACIÓN · TITULAR VERIFICADO</p>
+  <h3 id="rio-admin-recovery-heading">Restablecer acceso a otras cuentas</h3>
+  <p>Únicamente cuentas registradas después de la cuenta propietaria. No puedes restablecer tu propia cuenta desde aquí ni consultar o establecer contraseñas ajenas.</p>
+  <form id="rio-admin-reset-form">
+<label for="rio-admin-reset-email">Correo de la cuenta destinataria</label><input id="rio-admin-reset-email" type="email" name="email" autocomplete="off" maxlength="254" required>
+  <button id="rio-admin-reset-submit" type="submit">Generar enlace de recuperación</button>
+</form>
+  <p id="rio-admin-reset-status" role="status" aria-live="polite"></p>
+  <label id="rio-admin-reset-link-label" hidden for="rio-admin-reset-link">Enlace privado de un solo uso (15 minutos)</label>
+  <input id="rio-admin-reset-link" type="text" readonly autocomplete="off" spellcheck="false" hidden>
+  <p class="muted">Entrega el enlace al titular por un canal privado y verifica su identidad. Al establecer su contraseña se revocan sus sesiones anteriores. No se envía por correo automáticamente.</p>
+ </article>
+ </section></div>
+</div></section><footer>Mercado Abierto · La notificación del proveedor y la acreditación bancaria se consultan por separado.</footer></main></body>
+</html>
