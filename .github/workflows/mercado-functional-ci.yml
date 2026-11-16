@@ -1,0 +1,55 @@
+name: Mercado functional gateway
+on:
+  push:
+    branches:
+      - main
+      - 'ci/**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  api-functional:
+    name: API, accounts, commerce and cash boundary
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: source/app/pyproject.toml
+      - name: Install published application and test dependencies
+        run: python -m pip install -e './source/app[test]'
+      - name: Exercise real application routes with isolated local SQLite and in-memory email
+        working-directory: source/app
+        run: |
+          python -m pytest -q \
+            tests/test_self_signup_and_own_pey.py \
+            tests/test_login_first_workspace.py \
+            tests/test_mercado_abierto_navigation.py \
+            tests/test_merchant_invitation.py \
+            tests/test_hackaton_r016_commerce.py \
+            tests/test_http_operational_flow.py \
+            tests/test_gateway.py \
+            tests/test_reconciliation.py
+
+  ui-contracts:
+    name: Account, market and cash JavaScript contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exact-cent cash and market-to-cash bridge
+        run: node --test source/app/tests/cash_ui.test.cjs source/app/tests/puente.test.cjs
+      - name: Email verification client contract
+        run: node source/app/tests/auth_verification_client.test.cjs
+      - name: Help launcher and authenticated-page assets
+        run: node source/app/tests/rio_help_dock_static.cjs
