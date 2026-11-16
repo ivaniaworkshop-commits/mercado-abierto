@@ -14,7 +14,7 @@ function get(id){
 const reply=(status,body)=>({ok:status>=200&&status<300,status,json:async()=>body});
 let sent=[];
 const context=vm.createContext({document:{getElementById:get,createElement:()=>get('created')},
-  location:{hash:'',search:'',pathname:'/',replace(){}},window:{RioSession:{lock(){}}},history:{replaceState(){}},navigator:{},
+  location:{hash:'',search:'',pathname:'/'},history:{replaceState(){}},navigator:{},
   localStorage:{getItem(){return null},setItem(){throw Error('Should not store the key')}},
   crypto:{randomUUID:()=> '11111111-2222-4333-8444-555555555555'},
   fetch:async(url,options={})=>{
