@@ -17,7 +17,7 @@
 | Flujo HTTP en localhost | `test_http_operational_flow.py` | servidor HTTP local real, registro, QR no pagable, conciliación no bancaria y reinicio |
 | Gateway y conciliación | `test_gateway.py`, `test_reconciliation.py` | rechazo de operaciones inseguras, exactitud de importes y clasificación de conciliación |
 | JavaScript Caja y puente | `cash_ui.test.cjs`, `puente.test.cjs` | redondeo en centavos, ventas de efectivo, aislamiento, transferencia Mercado→Caja |
-| JavaScript alta, verificación y centro de ayuda | `self_signup_ui.cjs`, `auth_verification_client.test.cjs`, `rio_help_dock_static.cjs` | contratos de DOM y seguridad de cliente; no sustituyen pruebas reales de navegador |
+| JavaScript verificación y centro de ayuda | `auth_verification_client.test.cjs`, `rio_help_dock_static.cjs` | contratos de DOM y seguridad de cliente; no sustituyen pruebas reales de navegador |
 
 ## Semántica de los resultados
 - `PASS` sólo puede afirmarse tras observar una ejecución de Actions completada satisfactoriamente.
@@ -31,3 +31,7 @@
 2. Comprobar HEAD de rama/PR, resultados de jobs, y ruta exacta del workflow mediante readback.
 3. Si falla, mantener `FAIL` y separar defecto de producto de problema de publicación/fixture; no ocultar ni desactivar una prueba que falle sin justificarlo.
 4. No promover a `PRODUCTION_READY`, `BANK_SETTLEMENT_OBSERVED` ni `E2E_PRODUCTION_PASS` a partir de este CI.
+
+## Deuda detectada durante la activación
+- El test legado `tests/self_signup_ui.cjs` falló inicialmente con un `ReferenceError` en su entorno VM y, después de corregir esa simulación del navegador, volvió a fallar al asumir que el registro estaba disponible tras una respuesta `401`. En el producto actual, `boot()` redirige a login ante `401`. Por ello **no se considera prueba superada ni se incorpora al gate** hasta reescribir su fixture. El test original permanece intacto.
+- El alta y la verificación de cuentas sí están cubiertas en el job Python mediante llamadas a la aplicación FastAPI con SQLite local.
