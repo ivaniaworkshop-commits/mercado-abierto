@@ -49,7 +49,9 @@ jobs:
           node-version: '22'
       - name: Exact-cent cash and market-to-cash bridge
         run: node --test source/app/tests/cash_ui.test.cjs source/app/tests/puente.test.cjs
-      - name: Email verification client contract
-        run: node source/app/tests/auth_verification_client.test.cjs
+      - name: Signup and email verification client contracts
+        run: |
+          node source/app/tests/self_signup_ui.cjs
+          node source/app/tests/auth_verification_client.test.cjs
       - name: Help launcher and authenticated-page assets
         run: node source/app/tests/rio_help_dock_static.cjs
